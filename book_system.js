@@ -4,6 +4,7 @@ function addBook() {
     const authorName = document.getElementById('authorName').value;
     const bookDescription = document.getElementById('bookDescription').value;
     const pagesNumber = parseInt(document.getElementById('pagesNumber').value);
+
     if (bookName && authorName && bookDescription && !isNaN(pagesNumber)) {
         const book = {
             name: bookName,
@@ -19,19 +20,30 @@ function addBook() {
     }
 }
 
+
+
+
 function showbooks() {
-    const booksDiv = books.map((book, index) => `<h1>book Number: ${index + 1}</h1>
-        <p><strong>Book Name: </strong>${book.name}</p>
-        <p><strong>Author Name:</strong> ${book.authorName}</p>
-        <p><strong>Book Description:</strong> ${book.bookDescription}</p>
-        <p><strong>No. of Pages:</strong> ${book.pagesNumber} page(s)</p>`
-    );
+    const booksDiv = books.map((book, index) => `
+        
+            <h1>Book Number: ${index + 1}</h1>
+            <p><strong>Book Name: </strong>${book.name}</p>
+            <p><strong>Author Name:</strong> ${book.authorName}</p>
+            <p><strong>Book Description:</strong> ${book.bookDescription}</p>
+            <p><strong>No. of Pages:</strong> ${book.pagesNumber} page(s)</p>
+            <button onclick="deletebook(${index})">Delete</button>
+        
+    `);
     document.getElementById('books').innerHTML = booksDiv.join('');
 }
+function clearInput() {
+    document.getElementById('bookName').value = '';
+    document.getElementById('authorName').value = '';
+    document.getElementById('bookDescription').value = '';
+    document.getElementById('pagesNumber').value = '';
+}
 
-function clearInput(){
-    document.getElementById('bookName').value= '';
-    document.getElementById('authorName').value= '';
-    document.getElementById('bookDescription').value= '';
-    document.getElementById('pagesNumber').value= '';
+function deletebook(index) {
+    books.splice(index, 1);
+    showbooks(); 
 }
